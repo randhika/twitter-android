@@ -1,5 +1,6 @@
 package st40611.app.mytwitterapp;
 
+import st40611.app.mytwitterapp.fragments.DiscoverListFragment;
 import st40611.app.mytwitterapp.fragments.HomeTimelineFragment;
 import st40611.app.mytwitterapp.fragments.MentionsFragment;
 import android.app.ActionBar;
@@ -14,6 +15,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class TimelineActivity extends FragmentActivity implements TabListener {
+	HomeTimelineFragment homeTimelineFragment;
+	MentionsFragment mentionsFragment;
+	DiscoverListFragment discoverListFragment;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +36,18 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 				.setIcon(R.drawable.ic_home)
 				.setTabListener(this);
 		
+		Tab tabDiscover = actionBar.newTab().setText("Discover")
+				.setTag("DiscoverListFragment")
+				.setIcon(R.drawable.ic_search)
+				.setTabListener(this);
+		
 		Tab tabMentions = actionBar.newTab().setText("Mentions")
-				.setTag("MentionsTimelineFragment")
+				.setTag("MentionsFragment")
 				.setIcon(R.drawable.ic_mentions)
 				.setTabListener(this);
 		
 		actionBar.addTab(tabHome);
+		actionBar.addTab(tabDiscover);
 		actionBar.addTab(tabMentions);
 		actionBar.selectTab(tabHome);
 	}
@@ -84,9 +95,14 @@ public class TimelineActivity extends FragmentActivity implements TabListener {
 		android.support.v4.app.FragmentTransaction fts = manager.beginTransaction();
 		if (("HomeTimelineFragment").equals(tab.getTag())) {
 			// set the fragment in FrameLayout to homeTimeLine
-			fts.replace(R.id.frame_container, new HomeTimelineFragment());
-		} else {
-			fts.replace(R.id.frame_container, new MentionsFragment());
+			homeTimelineFragment = new HomeTimelineFragment();
+			fts.replace(R.id.frame_container, homeTimelineFragment);
+		} else if (("MentionsFragment").equals(tab.getTag())){
+			mentionsFragment = new MentionsFragment();
+			fts.replace(R.id.frame_container, mentionsFragment);
+		} else if (("DiscoverListFragment").equals(tab.getTag())){
+			discoverListFragment = new DiscoverListFragment();
+			fts.replace(R.id.frame_container, discoverListFragment);
 		}
 		fts.commit();
 	}

@@ -7,5 +7,6 @@ The following features are all implemented:
 - User can also view other users' timeline tweets by tapping one of their tweets
 - User can view the recent mentions of their username
 - User can view their profile
+- User can search / discover new Tweets with a query string
 
 ![Screenshot](screenshot.png)
