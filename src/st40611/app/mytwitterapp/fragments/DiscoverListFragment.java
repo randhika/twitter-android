@@ -72,6 +72,7 @@ public class DiscoverListFragment extends Fragment {
 		MyTwitterApp.getRestClient().query(query, new JsonHttpResponseHandler() {
 			@Override
 			public void onSuccess(JSONObject response) {
+				adapter.clear();
 				try {
 					JSONArray statuses = (JSONArray) response.get("statuses");
 					adapter.addAll(Tweet.fromJson(statuses));
